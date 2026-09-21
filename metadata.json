@@ -1,0 +1,6 @@
+{
+  "name": "Stickman Element Brawlers: Campaign Edition",
+  "description": "A fast-paced cyber-arcade stickman combat campaign featuring 4 elemental classes, 10 levels with epic bosses, smash knockback, persistent skill shop, and roguelite power-ups.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
