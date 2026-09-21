@@ -239,15 +239,21 @@
       text-align: center;
       cursor: pointer;
       box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
     }
     .reward-card:hover {
-      transform: translateY(-8px);
+      transform: translateY(-6px);
       box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
       border-color: #60a5fa;
+    }
+    .reward-card:active {
+      transform: scale(0.97);
     }
     .reward-title {
       font-size: 1.1rem;
@@ -324,6 +330,160 @@
       z-index: 5;
     }
     .controls-guide span { color: #38bdf8; font-weight: 700; }
+
+    /* On-Screen Mobile Touch Controls */
+    .mobile-controls-panel {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 8;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 18px 24px;
+      touch-action: none;
+      transition: opacity 0.2s ease;
+    }
+    .mobile-controls-panel.hidden-controls {
+      display: none !important;
+    }
+    .touch-cluster {
+      pointer-events: auto;
+      display: flex;
+      touch-action: none;
+      align-items: flex-end;
+      gap: 10px;
+    }
+    .touch-cluster-left {
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 4px;
+    }
+    .touch-cluster-right {
+      align-items: flex-end;
+      gap: 12px;
+      padding-bottom: 4px;
+    }
+    .touch-btn {
+      background: rgba(15, 23, 42, 0.85);
+      border: 2px solid rgba(56, 189, 248, 0.45);
+      color: #38bdf8;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 900;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      transition: transform 0.08s ease, background 0.12s ease, border-color 0.12s ease;
+      backdrop-filter: blur(6px);
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      position: relative;
+    }
+    .touch-btn:active, .touch-btn.active {
+      transform: scale(0.90);
+      background: rgba(56, 189, 248, 0.35);
+      border-color: #38bdf8;
+      box-shadow: 0 0 22px rgba(56, 189, 248, 0.7);
+    }
+    .touch-btn-jump {
+      width: 64px;
+      height: 64px;
+      border-color: #00f0ff;
+      color: #00f0ff;
+      background: rgba(0, 240, 255, 0.18);
+    }
+    .touch-btn-attack {
+      width: 72px;
+      height: 72px;
+      border-color: #f97316;
+      color: #ffedd5;
+      background: linear-gradient(135deg, rgba(234, 88, 12, 0.4) 0%, rgba(15, 23, 42, 0.9) 100%);
+      box-shadow: 0 0 18px rgba(249, 115, 22, 0.5);
+    }
+    .touch-btn-attack:active, .touch-btn-attack.active {
+      background: rgba(249, 115, 22, 0.7);
+      box-shadow: 0 0 30px rgba(249, 115, 22, 0.9);
+      border-color: #ffffff;
+    }
+    .touch-btn-skill {
+      width: 58px;
+      height: 58px;
+      border-color: #a855f7;
+      color: #e9d5ff;
+      background: rgba(168, 85, 247, 0.2);
+    }
+    .touch-btn-dash {
+      width: 54px;
+      height: 54px;
+      border-color: #10b981;
+      color: #a7f3d0;
+      background: rgba(16, 185, 129, 0.2);
+    }
+    .touch-btn .touch-icon {
+      font-size: 1.25rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .touch-btn .touch-lbl {
+      font-size: 0.54rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-top: 2px;
+      pointer-events: none;
+    }
+    .touch-cd-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #94a3b8;
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 0; }
+      #game-container {
+        border-radius: 0;
+        border: none;
+        max-width: 100vw;
+        max-height: 100vh;
+      }
+      h1 { font-size: 1.45rem; text-align: center; }
+      .subtitle { font-size: 0.78rem; margin-bottom: 12px; text-align: center; }
+      .map-grid { grid-template-columns: repeat(2, 1fr); max-height: 48vh; overflow-y: auto; gap: 8px; }
+      .level-node { min-width: unset; padding: 8px; }
+      .class-select-row { gap: 6px; flex-wrap: wrap; justify-content: center; }
+      .class-card { min-width: 70px; padding: 6px 8px; }
+      .reward-cards { flex-direction: column; align-items: center; max-height: 50vh; overflow-y: auto; gap: 10px; }
+      .reward-card { width: 92%; max-width: 250px; padding: 12px; }
+      .shop-modal { padding: 14px; max-height: 85vh; overflow-y: auto; width: 95vw; }
+      .shop-grid { grid-template-columns: 1fr; gap: 8px; }
+      .top-hud { top: 6px; left: 8px; right: 8px; flex-wrap: wrap; gap: 6px; }
+      .hud-badge { padding: 3px 8px; font-size: 0.72rem; }
+      .btn { padding: 6px 12px; font-size: 0.78rem; }
+      .controls-guide { display: none; }
+      .touch-btn { width: 50px; height: 50px; font-size: 1.05rem; }
+      .touch-btn-jump { width: 56px; height: 56px; }
+      .touch-btn-attack { width: 62px; height: 62px; }
+      .touch-btn-skill { width: 50px; height: 50px; }
+      .touch-btn-dash { width: 46px; height: 46px; }
+      .mobile-controls-panel { padding: 10px 12px; }
+    }
   </style>
 </head>
 <body>
@@ -332,7 +492,7 @@
 
     <!-- TOP HUD -->
     <div class="top-hud">
-      <div style="display:flex; gap:10px;">
+      <div style="display:flex; gap:8px; align-items:center;">
         <div class="hud-badge hud-gold">
           <span>GOLD:</span> <span id="hud-gold-val">0</span>
         </div>
@@ -340,14 +500,53 @@
           <span>XP:</span> <span id="hud-xp-val">0</span> (Lv.<span id="hud-plvl-val">1</span>)
         </div>
       </div>
-      <div style="display:flex; gap:10px;">
-        <button id="btn-open-shop" class="btn btn-gold" style="padding:6px 16px; font-size:0.85rem;">UPGRADES</button>
-        <button id="btn-map-menu" class="btn btn-secondary" style="padding:6px 16px; font-size:0.85rem;">CAMPAIGN MAP</button>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button id="btn-toggle-touch" class="btn btn-secondary" style="padding:5px 10px; font-size:0.76rem;" title="Toggle mobile touch controls">📱 TOUCH: ON</button>
+        <button id="btn-toggle-sound" class="btn btn-secondary" style="padding:5px 10px; font-size:0.76rem;" title="Toggle sound effects">🔊 SOUND: ON</button>
+        <button id="btn-open-shop" class="btn btn-gold" style="padding:5px 12px; font-size:0.8rem;">UPGRADES</button>
+        <button id="btn-map-menu" class="btn btn-secondary" style="padding:5px 12px; font-size:0.8rem;">MAP</button>
       </div>
     </div>
 
     <div class="controls-guide">
-      <span>A/D</span> Move | <span>W</span> Jump / Double-Jump | <span>SHIFT</span> Dash | <span>F</span> Attack | <span>G</span> Elemental Skill
+      <span>A/D</span> Move | <span>W</span> Jump / Double-Jump | <span>SHIFT</span> Dash | <span>F</span> Attack | <span>G</span> Skill
+    </div>
+
+    <!-- ON-SCREEN MOBILE TOUCH CONTROLS -->
+    <div id="mobile-controls" class="mobile-controls-panel">
+      <!-- Left D-Pad / Movement Cluster -->
+      <div class="touch-cluster touch-cluster-left">
+        <button class="touch-btn touch-btn-dir" id="tbtn-left" aria-label="Move Left">
+          <span class="touch-icon">◀</span>
+          <span class="touch-lbl">LEFT</span>
+        </button>
+        <button class="touch-btn touch-btn-jump" id="tbtn-jump" aria-label="Jump / Double Jump">
+          <span class="touch-icon">▲</span>
+          <span class="touch-lbl">JUMP</span>
+        </button>
+        <button class="touch-btn touch-btn-dir" id="tbtn-right" aria-label="Move Right">
+          <span class="touch-icon">▶</span>
+          <span class="touch-lbl">RIGHT</span>
+        </button>
+      </div>
+
+      <!-- Right Action Cluster -->
+      <div class="touch-cluster touch-cluster-right">
+        <button class="touch-btn touch-btn-dash" id="tbtn-dash" aria-label="Dash">
+          <div class="touch-cd-overlay" id="touch-dash-cd"></div>
+          <span class="touch-icon">💨</span>
+          <span class="touch-lbl" id="touch-dash-lbl">DASH</span>
+        </button>
+        <button class="touch-btn touch-btn-skill" id="tbtn-skill" aria-label="Elemental Skill">
+          <div class="touch-cd-overlay" id="touch-skill-cd"></div>
+          <span class="touch-icon">✨</span>
+          <span class="touch-lbl" id="touch-skill-lbl">SKILL</span>
+        </button>
+        <button class="touch-btn touch-btn-attack" id="tbtn-attack" aria-label="Melee Attack">
+          <span class="touch-icon">⚔️</span>
+          <span class="touch-lbl">ATTACK</span>
+        </button>
+      </div>
     </div>
 
     <!-- MAIN MENU OVERLAY -->
@@ -390,6 +589,7 @@
       </div>
 
       <div class="reward-cards" id="reward-cards-container"></div>
+      <button id="btn-skip-reward" class="btn btn-secondary" style="margin-top:14px; padding:8px 24px; font-size:0.85rem;">CONTINUE TO CAMPAIGN MAP ➔</button>
     </div>
 
     <!-- DEFEAT OVERLAY -->
@@ -565,9 +765,129 @@
     let platforms = [];
     let hazards = [];
 
+    // ==========================================================================
+    // AUDIO SYNTHESIZER & SOUND EFFECTS (Zero-Dependency Web Audio)
+    // ==========================================================================
+    let audioCtx = null;
+    let soundEnabled = true;
+    let touchControlsEnabled = true;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtxClass) {
+          audioCtx = new AudioCtxClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playSfx(type, isCrit = false) {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+
+        if (type === 'hit') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = isCrit ? 'sawtooth' : 'triangle';
+          osc.frequency.setValueAtTime(isCrit ? 280 : 190, now);
+          osc.frequency.exponentialRampToValueAtTime(45, now + 0.12);
+          gain.gain.setValueAtTime(isCrit ? 0.35 : 0.22, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.12);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.12);
+        } else if (type === 'attack') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(450, now);
+          osc.frequency.exponentialRampToValueAtTime(140, now + 0.08);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'jump') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(160, now);
+          osc.frequency.exponentialRampToValueAtTime(390, now + 0.11);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.11);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.11);
+        } else if (type === 'dash') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(540, now);
+          osc.frequency.exponentialRampToValueAtTime(180, now + 0.13);
+          gain.gain.setValueAtTime(0.18, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.13);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.13);
+        } else if (type === 'special') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(620, now);
+          osc.frequency.exponentialRampToValueAtTime(110, now + 0.26);
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.26);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.26);
+        } else if (type === 'victory') {
+          [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now + i * 0.1);
+            gain.gain.setValueAtTime(0.2, now + i * 0.1);
+            gain.gain.linearRampToValueAtTime(0.01, now + i * 0.1 + 0.22);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now + i * 0.1);
+            osc.stop(now + i * 0.1 + 0.22);
+          });
+        } else if (type === 'defeat') {
+          [360, 310, 240, 160].forEach((freq, i) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(freq, now + i * 0.13);
+            gain.gain.setValueAtTime(0.22, now + i * 0.13);
+            gain.gain.linearRampToValueAtTime(0.01, now + i * 0.13 + 0.18);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now + i * 0.13);
+            osc.stop(now + i * 0.13 + 0.18);
+          });
+        }
+      } catch (err) {
+        // Audio policy or unsupported
+      }
+    }
+
     // Keyboard Input
     const keys = {};
     window.addEventListener('keydown', (e) => {
+      getAudioContext();
       keys[e.key.toLowerCase()] = true;
       if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(e.key.toLowerCase())) {
         e.preventDefault();
@@ -577,11 +897,68 @@
       keys[e.key.toLowerCase()] = false;
     });
 
+    // Touch Controls setup
+    function initTouchControls() {
+      const touchBtns = [
+        { id: 'tbtn-left', key: 'a' },
+        { id: 'tbtn-right', key: 'd' },
+        { id: 'tbtn-jump', key: 'w', action: 'jump' },
+        { id: 'tbtn-dash', key: 'shift', action: 'dash' },
+        { id: 'tbtn-attack', key: 'f', action: 'attack' },
+        { id: 'tbtn-skill', key: 'g', action: 'skill' }
+      ];
+
+      touchBtns.forEach(({ id, key, action }) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        const press = (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          getAudioContext();
+          keys[key] = true;
+          el.classList.add('active');
+          try { navigator.vibrate?.(12); } catch (err) {}
+
+          if (player && gameState === 'BATTLE') {
+            if (action === 'jump') {
+              player.triggerJump();
+            } else if (action === 'attack') {
+              player.triggerAttack();
+            } else if (action === 'skill') {
+              player.triggerSkill();
+            } else if (action === 'dash') {
+              player.triggerDash();
+            }
+          }
+        };
+
+        const release = (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          keys[key] = false;
+          el.classList.remove('active');
+        };
+
+        el.addEventListener('touchstart', press, { passive: false });
+        el.addEventListener('touchend', release, { passive: false });
+        el.addEventListener('touchcancel', release, { passive: false });
+
+        el.addEventListener('mousedown', press);
+        el.addEventListener('mouseup', release);
+        el.addEventListener('mouseleave', release);
+      });
+    }
+
     /* ==========================================================================
        ENTITY: STICKMAN BRAWLER
        ========================================================================== */
     class Stickman {
-      constructor(x, y, charClass, isAI = false, isBoss = false, hpMultiplier = 1.0) {
+      constructor(x, y, charClass, isAI = false, isBoss = false, hpMultiplier = 1.0, levelId = 1, roleIndex = 0) {
         this.x = x;
         this.y = y;
         this.vx = 0;
@@ -592,9 +969,25 @@
         this.classDef = CLASSES[charClass] || CLASSES.fire;
         this.isAI = isAI;
         this.isBoss = isBoss;
+        this.levelId = levelId;
+        this.roleIndex = roleIndex; // 0 = vanguard brawler, 1 = support zoner
 
-        // Base Stats calculation with upgrades & run powerups
-        let baseMaxHp = isBoss ? 450 * hpMultiplier : (isAI ? 100 * hpMultiplier : 140 + profile.upgrades.health * 25);
+        // Base Stats calculation: Level 1 is very basic, higher levels scaled for challenge
+        let baseMaxHp;
+        if (isBoss) {
+          baseMaxHp = 500 * hpMultiplier;
+        } else if (isAI) {
+          if (levelId === 1) {
+            baseMaxHp = 65; // Level 1 is so basic & easy to defeat
+          } else if (levelId <= 3) {
+            baseMaxHp = 100 * hpMultiplier;
+          } else {
+            // Difficulty slightly increased for higher levels
+            baseMaxHp = (115 + levelId * 8) * hpMultiplier;
+          }
+        } else {
+          baseMaxHp = 140 + profile.upgrades.health * 25;
+        }
         this.maxHp = baseMaxHp;
         this.hp = this.maxHp;
 
@@ -621,10 +1014,13 @@
         // Smash Knockback damage scaling tracker (% of damage taken)
         this.damagePercent = 0;
 
-        // AI behavior timers
+        // AI behavior timers & states
         this.aiActionTimer = Math.floor(Math.random() * 40);
-        this.aiState = 'IDLE'; // PATROL, ENGAGE, FLEE
+        this.aiState = 'ENGAGE';
         this.bossPhase = 1;
+        this.isTelegraphing = false;
+        this.telegraphTimer = 0;
+        this.telegraphType = 'punch'; // 'punch', 'special', or 'slam'
 
         // Animation state
         this.runCycle = 0;
@@ -634,10 +1030,46 @@
         let dmg = this.classDef.attackDamage;
         if (!this.isAI) {
           dmg *= (1 + profile.upgrades.damage * 0.12) * activePowerUps.damageMult;
+        } else if (this.levelId === 1) {
+          dmg = 8; // Level 1 dummy does very mild damage
         } else if (this.isBoss) {
-          dmg *= 1.4;
+          dmg *= 1.5;
+        } else if (this.levelId >= 4) {
+          dmg *= 1.0 + (this.levelId * 0.04); // Slightly increased difficulty
         }
         return dmg;
+      }
+
+      triggerJump() {
+        if (this.isGrounded || this.jumpCount < this.maxJumps) {
+          this.vy = -this.classDef.jumpForce;
+          this.jumpCount++;
+          spawnBurstParticles(this.x, this.y + this.height / 2, this.classDef.color, 8);
+          playSfx('jump');
+        }
+      }
+
+      triggerAttack() {
+        if (this.attackCooldown <= 0) {
+          this.performMeleeAttack();
+        }
+      }
+
+      triggerDash() {
+        if (this.dashCooldownTimer <= 0) {
+          this.dashTimer = this.dashDuration;
+          const cdBase = 75;
+          this.dashCooldownTimer = Math.floor(cdBase * activePowerUps.dashCooldownMult);
+          this.invulnerableTimer = this.dashDuration + 4;
+          cameraShake = 4;
+          playSfx('dash');
+        }
+      }
+
+      triggerSkill() {
+        if (this.specialCooldownTimer <= 0) {
+          this.performElementalSpecial();
+        }
       }
 
       update() {
@@ -737,15 +1169,11 @@
           this.facing = 1;
         }
 
-        // Jump (W or Space)
-        if (keys['w'] || keys['arrowup']) {
+        // Jump (W or Space or ArrowUp)
+        if (keys['w'] || keys['arrowup'] || keys[' ']) {
           if (!this.wKeyHeld) {
             this.wKeyHeld = true;
-            if (this.isGrounded || this.jumpCount < this.maxJumps) {
-              this.vy = -this.classDef.jumpForce;
-              this.jumpCount++;
-              spawnBurstParticles(this.x, this.y + this.height / 2, this.classDef.color, 8);
-            }
+            this.triggerJump();
           }
         } else {
           this.wKeyHeld = false;
@@ -755,31 +1183,27 @@
         if (keys['shift']) {
           if (!this.shiftKeyHeld && this.dashCooldownTimer <= 0) {
             this.shiftKeyHeld = true;
-            this.dashTimer = this.dashDuration;
-            const cdBase = 75;
-            this.dashCooldownTimer = Math.floor(cdBase * activePowerUps.dashCooldownMult);
-            this.invulnerableTimer = this.dashDuration + 4;
-            cameraShake = 4;
+            this.triggerDash();
           }
         } else {
           this.shiftKeyHeld = false;
         }
 
-        // Light Attack (F)
-        if (keys['f']) {
+        // Light Attack (F or J)
+        if (keys['f'] || keys['j']) {
           if (!this.fKeyHeld && this.attackCooldown <= 0) {
             this.fKeyHeld = true;
-            this.performMeleeAttack();
+            this.triggerAttack();
           }
         } else {
           this.fKeyHeld = false;
         }
 
-        // Elemental Special (G)
-        if (keys['g']) {
+        // Elemental Special (G or K)
+        if (keys['g'] || keys['k']) {
           if (!this.gKeyHeld && this.specialCooldownTimer <= 0) {
             this.gKeyHeld = true;
-            this.performElementalSpecial();
+            this.triggerSkill();
           }
         } else {
           this.gKeyHeld = false;
@@ -789,17 +1213,18 @@
       performMeleeAttack() {
         this.attackCooldown = 22;
         this.attackTimer = this.attackDuration;
+        playSfx('attack');
 
         // Check melee hitbox against opponents
         const targets = this.isAI ? [player] : enemies;
-        const attackReach = 65;
+        const attackReach = 68;
         const attackOriginX = this.x + this.facing * 35;
 
         // Visual slash effect particle
         particles.push(new SlashEffect(attackOriginX, this.y, this.facing, this.classDef.color));
 
         targets.forEach(target => {
-          if (target.hp <= 0) return;
+          if (!target || target.hp <= 0) return;
           const dist = Math.hypot(target.x - attackOriginX, target.y - this.y);
           if (dist < attackReach) {
             let dmg = this.getEffectiveDamage();
@@ -833,6 +1258,7 @@
         const cdReduction = (profile.upgrades.cooldown || 0) * 0.10;
         this.specialCooldownTimer = Math.floor(this.classDef.specialCooldown * (1 - cdReduction));
         cameraShake = 7;
+        playSfx('special');
 
         const radMult = activePowerUps.specialRadiusMult || 1.0;
 
@@ -861,7 +1287,7 @@
           particles.push(new LightningStrikeVisual(this.x, this.y - 10, hitX + this.facing * (range / 2), this.y - 10));
           const targets = this.isAI ? [player] : enemies;
           targets.forEach(t => {
-            if (Math.abs(t.y - this.y) < 60 && (t.x - this.x) * this.facing > 0 && Math.abs(t.x - this.x) < range) {
+            if (t && Math.abs(t.y - this.y) < 60 && (t.x - this.x) * this.facing > 0 && Math.abs(t.x - this.x) < range) {
               t.takeHit(this.getEffectiveDamage() * 1.8, this.facing * 14, -8, '#ffe600');
             }
           });
@@ -879,53 +1305,214 @@
         }
       }
 
+      performBossGroundSlam() {
+        this.vy = 16;
+        cameraShake = 16;
+        spawnBurstParticles(this.x, this.y + 30, this.classDef.color, 35);
+        playSfx('special');
+
+        // Shockwaves in both directions along platform
+        [-1, 1].forEach(dir => {
+          projectiles.push(new Projectile(
+            this.x, this.y + 20,
+            dir * 9, 0,
+            this.getEffectiveDamage() * 1.5,
+            this.classKey, true, 1.4
+          ));
+        });
+
+        // Hit player if on same level close by
+        if (player && Math.hypot(player.x - this.x, player.y - this.y) < 170) {
+          player.takeHit(this.getEffectiveDamage() * 1.6, this.facing * 12, -10, this.classDef.color);
+        }
+      }
+
       handleAIBehavior() {
         if (!player || player.hp <= 0) return;
 
         const distToPlayer = Math.hypot(player.x - this.x, player.y - this.y);
         const xDist = player.x - this.x;
-        this.facing = xDist > 0 ? 1 : -1;
+        const yDist = player.y - this.y;
 
-        this.aiActionTimer--;
-        if (this.aiActionTimer <= 0) {
-          this.aiActionTimer = 25 + Math.floor(Math.random() * 30);
+        // Facing direction (unless currently dashing or telegraphing)
+        if (!this.isDashing && !this.isTelegraphing) {
+          this.facing = xDist > 0 ? 1 : -1;
+        }
 
-          // Boss phase trigger
-          if (this.isBoss && this.hp < this.maxHp * 0.5 && this.bossPhase === 1) {
-            this.bossPhase = 2;
-            floatingTexts.push(new FloatingText(this.x, this.y - 60, "PHASE 2: ENRAGED!", "#ef4444", 24));
-            cameraShake = 12;
-            spawnBurstParticles(this.x, this.y, '#ef4444', 35);
+        // ==========================================
+        // EDGE RECOVERY CHECK (Trained AI - No Dumb Falls!)
+        // ==========================================
+        if (this.levelId > 1) {
+          const isOverPlatform = platforms.some(p => this.x + 30 > p.x && this.x - 30 < p.x + p.w);
+          if (!isOverPlatform && this.y > 450) {
+            const centerDir = this.x < 640 ? 1 : -1;
+            this.facing = centerDir;
+            this.vx = centerDir * 6.5;
+
+            if (this.jumpCount < this.maxJumps && this.vy > -2) {
+              this.vy = -this.classDef.jumpForce * 1.05;
+              this.jumpCount++;
+              spawnBurstParticles(this.x, this.y + 20, this.classDef.color, 8);
+              playSfx('jump');
+            } else if (this.dashCooldownTimer <= 0 && this.dashTimer <= 0) {
+              this.dashTimer = this.dashDuration;
+              this.dashCooldownTimer = 80;
+              this.invulnerableTimer = 10;
+              playSfx('dash');
+            }
+            return;
           }
         }
 
-        // Approach or attack player
-        const speed = this.classDef.speed * (this.bossPhase === 2 ? 1.3 : 1.0);
-        if (distToPlayer > 80) {
-          this.vx = this.facing * speed * 0.85;
+        // ==========================================
+        // TIER 1: LEVEL 1 BASIC TRAINING DUMMY
+        // ==========================================
+        if (this.levelId === 1) {
+          // Level 1: Gentle, predictable sparring dummy
+          if (this.isTelegraphing) {
+            this.telegraphTimer--;
+            this.vx = 0; // Freeze in place to give player huge window to hit or jump
+            if (this.telegraphTimer <= 0) {
+              this.isTelegraphing = false;
+              this.performMeleeAttack();
+              this.attackCooldown = 110; // Long cooldown between attacks
+            }
+            return;
+          }
+
+          // Slow approach
+          if (distToPlayer > 85) {
+            this.vx = this.facing * 2.0; // Very slow crawl
+          } else {
+            this.vx = 0;
+            if (this.attackCooldown <= 0) {
+              this.isTelegraphing = true;
+              this.telegraphTimer = 36; // 0.6 seconds of bright warning exclamation mark
+              this.telegraphType = 'punch';
+            }
+          }
+          return;
         }
 
-        // AI Jump if player is higher or at edge
-        if (player.y < this.y - 40 && this.isGrounded && Math.random() < 0.08) {
-          this.vy = -this.classDef.jumpForce;
-          this.isGrounded = false;
+        // ==========================================
+        // TIER 2 & UP: TRAINED AI (LEVELS 2 TO 10)
+        // ==========================================
+
+        // Handle active telegraphing before committing to attack
+        if (this.isTelegraphing) {
+          this.telegraphTimer--;
+          this.vx *= 0.6;
+          if (this.telegraphTimer <= 0) {
+            this.isTelegraphing = false;
+            if (this.telegraphType === 'special') {
+              this.performElementalSpecial();
+            } else if (this.telegraphType === 'slam') {
+              this.performBossGroundSlam();
+            } else {
+              this.performMeleeAttack();
+              this.attackCooldown = this.levelId <= 3 ? 35 : 22;
+            }
+          }
+          return;
         }
 
-        // AI Attack
-        if (distToPlayer < 90 && this.attackCooldown <= 0) {
-          this.performMeleeAttack();
+        // Boss Phase 2 Enraged check
+        if (this.isBoss && this.hp < this.maxHp * 0.5 && this.bossPhase === 1) {
+          this.bossPhase = 2;
+          floatingTexts.push(new FloatingText(this.x, this.y - 70, "🔥 PHASE 2: OVERDRIVE ENRAGED! 🔥", "#ef4444", 26));
+          cameraShake = 14;
+          spawnBurstParticles(this.x, this.y, '#ef4444', 40);
+          playSfx('special');
         }
 
-        // AI Special ability
-        if (distToPlayer < 300 && this.specialCooldownTimer <= 0 && Math.random() < 0.3) {
-          this.performElementalSpecial();
+        // Calculate AI speed based on level and boss phase
+        let baseSpeed = this.classDef.speed;
+        if (this.levelId <= 3) {
+          baseSpeed *= 0.78;
+        } else if (this.levelId >= 7) {
+          baseSpeed *= 1.1;
+        }
+        if (this.isBoss && this.bossPhase === 2) {
+          baseSpeed *= 1.35;
         }
 
-        // AI Dash away if low health
-        if (this.hp < this.maxHp * 0.3 && distToPlayer < 100 && this.dashCooldownTimer <= 0) {
-          this.facing = -this.facing;
-          this.dashTimer = this.dashDuration;
-          this.dashCooldownTimer = 90;
+        // Tactical evasion for Veteran AI (Level >= 4)
+        if (this.levelId >= 4 && !this.isBoss) {
+          // If player is attacking and within close range, 45% chance to dodge backwards
+          if (player.attackTimer > 0 && distToPlayer < 75 && this.dashCooldownTimer <= 0 && Math.random() < 0.08) {
+            this.facing = -this.facing;
+            this.dashTimer = this.dashDuration;
+            this.dashCooldownTimer = 90;
+            this.invulnerableTimer = 14;
+            playSfx('dash');
+            return;
+          }
+        }
+
+        // Support role logic in multi-enemy battles (Level 5-7, roleIndex 1)
+        if (this.roleIndex === 1 && !this.isBoss) {
+          // Zoner: Keep distance, jump to platforms, fire ranged attacks
+          const idealDist = 260;
+          if (distToPlayer < 180) {
+            this.vx = -this.facing * baseSpeed * 0.9;
+          } else if (distToPlayer > idealDist + 60) {
+            this.vx = this.facing * baseSpeed * 0.8;
+          }
+
+          // Fire special if line of sight is clear
+          if (Math.abs(yDist) < 60 && distToPlayer < 380 && this.specialCooldownTimer <= 0 && Math.random() < 0.05) {
+            this.isTelegraphing = true;
+            this.telegraphTimer = 18;
+            this.telegraphType = 'special';
+            return;
+          }
+        } else {
+          // Standard / Vanguard combatant
+          // Boss ground slam attack
+          if (this.isBoss && this.isGrounded && distToPlayer < 200 && Math.abs(yDist) < 50 && Math.random() < 0.02) {
+            this.vy = -12;
+            this.isTelegraphing = true;
+            this.telegraphTimer = 22;
+            this.telegraphType = 'slam';
+            return;
+          }
+
+          // Approach player
+          const stopDist = 65;
+          if (distToPlayer > stopDist) {
+            this.vx = this.facing * baseSpeed * 0.88;
+          } else {
+            this.vx = 0;
+          }
+
+          // Melee attack trigger with level-scaled telegraph
+          if (distToPlayer <= 78 && this.attackCooldown <= 0) {
+            const windupFrames = this.levelId <= 3 ? 18 : 8;
+            this.isTelegraphing = true;
+            this.telegraphTimer = windupFrames;
+            this.telegraphType = 'punch';
+            return;
+          }
+
+          // Special attack trigger
+          if (distToPlayer > 140 && distToPlayer < 350 && Math.abs(yDist) < 60 && this.specialCooldownTimer <= 0) {
+            const chance = this.levelId <= 3 ? 0.02 : 0.05;
+            if (Math.random() < chance) {
+              this.isTelegraphing = true;
+              this.telegraphTimer = this.levelId <= 3 ? 24 : 14;
+              this.telegraphType = 'special';
+              return;
+            }
+          }
+        }
+
+        // Jump to reach player if player is on elevated platform
+        if (yDist < -50 && this.isGrounded && Math.abs(xDist) < 220) {
+          if (Math.random() < 0.06) {
+            this.vy = -this.classDef.jumpForce;
+            this.isGrounded = false;
+            spawnBurstParticles(this.x, this.y + this.height / 2, this.classDef.color, 6);
+          }
         }
       }
 
@@ -934,15 +1521,22 @@
 
         // Knockback resistance calculation
         let kbRes = this.classKey === 'earth' ? 0.35 : 0;
+        if (this.isBoss) {
+          kbRes += 0.55; // Super armor against easy knockouts
+        } else if (this.levelId >= 4 && this.isAI) {
+          kbRes += 0.25; // Veteran computer brawler stance
+        }
         if (!this.isAI) kbRes += (profile.upgrades.knockbackRes || 0) * 0.15;
 
-        const finalKbX = kbX * (1 - Math.min(0.8, kbRes));
-        const finalKbY = kbY * (1 - Math.min(0.8, kbRes));
+        const finalKbX = kbX * (1 - Math.min(0.85, kbRes));
+        const finalKbY = kbY * (1 - Math.min(0.85, kbRes));
 
         this.hp -= damage;
         this.vx += finalKbX;
         this.vy += finalKbY;
         this.invulnerableTimer = 10;
+
+        playSfx('hit', isCrit);
 
         // Visual effects
         cameraShake = isCrit ? 10 : 5;
@@ -966,7 +1560,7 @@
 
         // Glowing stickman style
         ctx.shadowColor = this.classDef.glow;
-        ctx.shadowBlur = this.isBoss ? 20 : 12;
+        ctx.shadowBlur = this.isBoss ? (this.bossPhase === 2 ? 30 : 20) : 12;
         ctx.strokeStyle = color;
         ctx.fillStyle = color;
         ctx.lineWidth = this.isBoss ? 6 : 3.5;
@@ -1015,6 +1609,41 @@
         ctx.lineTo(this.facing * (10 + armPunch), -torsoLength + 14);
         ctx.lineTo(this.facing * (18 + armPunch * 1.5), -torsoLength + 12);
         ctx.stroke();
+
+        // Warning telegraph indicator for AI preparing an attack
+        if (this.isTelegraphing) {
+          ctx.save();
+          const warnColor = this.telegraphType === 'slam' ? '#ef4444' : (this.telegraphType === 'special' ? '#a855f7' : '#f97316');
+          ctx.fillStyle = warnColor;
+          ctx.shadowColor = warnColor;
+          ctx.shadowBlur = 12;
+          ctx.beginPath();
+          ctx.arc(0, -torsoLength - headRadius - 20, 11, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 14px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.shadowBlur = 0;
+          ctx.fillText('!', 0, -torsoLength - headRadius - 15);
+
+          // Charge pulse ring
+          ctx.strokeStyle = warnColor;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.arc(0, 0, 18 + (this.telegraphTimer % 10) * 1.4, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        // Level 1 Trainee Label
+        if (this.isAI && this.levelId === 1) {
+          ctx.save();
+          ctx.font = 'bold 9px sans-serif';
+          ctx.fillStyle = '#38bdf8';
+          ctx.textAlign = 'center';
+          ctx.fillText('TRAINING DUMMY (LVL 1)', 0, -torsoLength - headRadius - 22);
+          ctx.restore();
+        }
 
         // Health Bar & Smash % overhead
         const barWidth = 46 * scale;
@@ -1300,15 +1929,15 @@
       projectiles = [];
 
       // Spawn Player on Left
-      player = new Stickman(420, 480, profile.selectedClass, false);
+      player = new Stickman(420, 480, profile.selectedClass, false, false, 1.0, lvlId, 0);
 
       // Spawn Enemies or Boss
       enemies = [];
       if (def.isBoss) {
-        enemies.push(new Stickman(860, 480, def.enemyClass, true, true, def.hpMult || 3.0));
+        enemies.push(new Stickman(860, 480, def.enemyClass, true, true, def.hpMult || 3.0, lvlId, 0));
       } else {
         for (let i = 0; i < def.enemies; i++) {
-          enemies.push(new Stickman(820 + i * 110, 480, def.enemyClass, true, false, 1.0 + (lvlId * 0.12)));
+          enemies.push(new Stickman(820 + i * 110, 480, def.enemyClass, true, false, 1.0 + (lvlId * 0.12), lvlId, i));
         }
       }
 
@@ -1319,34 +1948,41 @@
       if (gameState !== 'BATTLE') return;
 
       // Player Defeat
-      if (player.hp <= 0) {
+      if (player && player.hp <= 0) {
+        playSfx('defeat');
         setUIState('DEFEAT');
         return;
       }
 
       // Enemy Cleared
-      const allEnemiesDefeated = enemies.every(e => e.hp <= 0);
-      if (allEnemiesDefeated) {
-        const def = LEVEL_DEFS.find(l => l.id === currentLevel);
-        const goldGain = def.rewardGold;
-        const xpGain = def.rewardXp;
+      if (enemies && enemies.length > 0) {
+        const allEnemiesDefeated = enemies.every(e => e.hp <= 0);
+        if (allEnemiesDefeated) {
+          // Immediately exit BATTLE state so reward logic only triggers ONCE
+          setUIState('REWARD');
+          playSfx('victory');
 
-        profile.gold += goldGain;
-        profile.xp += xpGain;
+          const def = LEVEL_DEFS.find(l => l.id === currentLevel) || LEVEL_DEFS[0];
+          const goldGain = def.rewardGold || 50;
+          const xpGain = def.rewardXp || 75;
 
-        // Level Up Profile check
-        const nextLvlXp = profile.playerLevel * 300;
-        if (profile.xp >= nextLvlXp) {
-          profile.playerLevel++;
-          floatingTexts.push(new FloatingText(CANVAS_WIDTH / 2, 200, "LEVEL UP! STATS BOOSTED", "#38bdf8", 26));
+          profile.gold += goldGain;
+          profile.xp += xpGain;
+
+          // Level Up Profile check
+          const nextLvlXp = profile.playerLevel * 300;
+          if (profile.xp >= nextLvlXp) {
+            profile.playerLevel++;
+            floatingTexts.push(new FloatingText(CANVAS_WIDTH / 2, 200, "LEVEL UP! STATS BOOSTED", "#38bdf8", 26));
+          }
+
+          if (!profile.clearedLevels.includes(currentLevel)) {
+            profile.clearedLevels.push(currentLevel);
+          }
+
+          saveProfile();
+          showRewardScreen(goldGain, xpGain);
         }
-
-        if (!profile.clearedLevels.includes(currentLevel)) {
-          profile.clearedLevels.push(currentLevel);
-        }
-
-        saveProfile();
-        showRewardScreen(goldGain, xpGain);
       }
     }
 
@@ -1479,6 +2115,30 @@
         ctx.fillText(`${player.comboHits}x HIT COMBO!`, cdBoxX + 240, cdBoxY + 30);
       }
 
+      // Level 1 Beginner Tutorial Guide Banner
+      if (currentLevel === 1) {
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+        ctx.fillRect(CANVAS_WIDTH / 2 - 280, 20, 560, 36);
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(CANVAS_WIDTH / 2 - 280, 20, 560, 36);
+
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = 'bold 12px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('STAGE 1 TUTORIAL: ◀ ▶ Move | ▲ Jump | ⚔️ Attack [F] | ⚡ Skill [G] | Defeat Dummy', CANVAS_WIDTH / 2, 42);
+      }
+
+      // Sync mobile touch button cooldown text
+      const touchDashCd = document.getElementById('touch-dash-cd');
+      if (touchDashCd) {
+        touchDashCd.innerText = player.dashCooldownTimer > 0 ? `${Math.ceil(player.dashCooldownTimer / 60)}s` : '';
+      }
+      const touchSkillCd = document.getElementById('touch-skill-cd');
+      if (touchSkillCd) {
+        touchSkillCd.innerText = player.specialCooldownTimer > 0 ? `${Math.ceil(player.specialCooldownTimer / 60)}s` : '';
+      }
+
       ctx.restore();
     }
 
@@ -1489,14 +2149,26 @@
       gameState = state;
       document.querySelectorAll('.overlay').forEach(el => el.classList.add('hidden'));
 
+      const mobileControlsEl = document.getElementById('mobile-controls');
+
       if (state === 'MENU') {
+        if (mobileControlsEl) mobileControlsEl.style.display = 'none';
         document.getElementById('overlay-main-menu').classList.remove('hidden');
         renderClassPickers();
       } else if (state === 'MAP') {
+        if (mobileControlsEl) mobileControlsEl.style.display = 'none';
         document.getElementById('overlay-campaign-map').classList.remove('hidden');
         renderCampaignMap();
+      } else if (state === 'BATTLE') {
+        if (mobileControlsEl) {
+          mobileControlsEl.style.display = touchControlsEnabled ? 'flex' : 'none';
+        }
       } else if (state === 'DEFEAT') {
+        if (mobileControlsEl) mobileControlsEl.style.display = 'none';
         document.getElementById('overlay-defeat').classList.remove('hidden');
+      } else if (state === 'REWARD') {
+        if (mobileControlsEl) mobileControlsEl.style.display = 'none';
+        document.getElementById('overlay-reward').classList.remove('hidden');
       }
       updateHUD();
     }
@@ -1594,9 +2266,11 @@
       renderCampaignMap();
     };
 
+    let rewardClaimed = false;
+
     function showRewardScreen(goldGain, xpGain) {
-      const overlay = document.getElementById('overlay-reward');
-      overlay.classList.remove('hidden');
+      rewardClaimed = false;
+      setUIState('REWARD');
       document.getElementById('victory-stats').innerText = `Earned +${goldGain} Gold and +${xpGain} XP!`;
 
       // Select 3 random unique power-ups from pool
@@ -1609,22 +2283,33 @@
       selected.forEach(p => {
         const card = document.createElement('div');
         card.className = 'reward-card';
+        const rarityColor = p.rarity === 'Epic' ? '#fbbf24' : (p.rarity === 'Rare' ? '#a855f7' : '#38bdf8');
+        card.style.borderColor = rarityColor;
+
         card.innerHTML = `
           <div>
-            <div class="reward-rarity">${p.rarity}</div>
+            <div class="reward-rarity" style="color:${rarityColor}">${p.rarity}</div>
             <div class="reward-title">${p.name}</div>
             <div class="reward-desc">${p.desc}</div>
           </div>
-          <button class="btn" style="width:100%; padding:8px; font-size:0.85rem;">CLAIM</button>
+          <button class="btn" style="width:100%; padding:9px; font-size:0.85rem; pointer-events:none; background:${rarityColor}22; border-color:${rarityColor}; color:#fff; font-weight:800;">CLAIM BENEFIT</button>
         `;
 
-        card.onclick = () => {
+        const claimHandler = (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          if (rewardClaimed) return;
+          rewardClaimed = true;
+
           p.apply(activePowerUps);
-          floatingTexts.push(new FloatingText(CANVAS_WIDTH / 2, 200, `EQUIPPED: ${p.name}`, '#38bdf8', 22));
-          overlay.classList.add('hidden');
+          floatingTexts.push(new FloatingText(CANVAS_WIDTH / 2, 200, `EQUIPPED: ${p.name}`, '#38bdf8', 24));
+          playSfx('special');
           setUIState('MAP');
         };
 
+        card.onclick = claimHandler;
         cardsContainer.appendChild(card);
       });
     }
@@ -1696,6 +2381,16 @@
     document.getElementById('btn-open-shop').onclick = openShop;
     document.getElementById('btn-close-shop').onclick = closeShop;
 
+    const btnSkipReward = document.getElementById('btn-skip-reward');
+    if (btnSkipReward) {
+      btnSkipReward.onclick = () => {
+        if (rewardClaimed) return;
+        rewardClaimed = true;
+        playSfx('attack');
+        setUIState('MAP');
+      };
+    }
+
     document.getElementById('btn-reset-data').onclick = () => {
       if (confirm("Reset all campaign levels, upgrades, and collected gold?")) {
         localStorage.removeItem('stickman_brawlers_campaign');
@@ -1703,7 +2398,30 @@
       }
     };
 
-    // Initialize Game
+    // Audio & Touch Toggle Button Listeners
+    const btnToggleSound = document.getElementById('btn-toggle-sound');
+    if (btnToggleSound) {
+      btnToggleSound.onclick = () => {
+        getAudioContext();
+        soundEnabled = !soundEnabled;
+        btnToggleSound.innerText = soundEnabled ? '🔊 Sound: ON' : '🔇 Sound: OFF';
+      };
+    }
+
+    const btnToggleTouch = document.getElementById('btn-toggle-touch');
+    if (btnToggleTouch) {
+      btnToggleTouch.onclick = () => {
+        touchControlsEnabled = !touchControlsEnabled;
+        btnToggleTouch.innerText = touchControlsEnabled ? '📱 Touch: ON' : '📱 Touch: OFF';
+        const mc = document.getElementById('mobile-controls');
+        if (mc) {
+          mc.style.display = (touchControlsEnabled && gameState === 'BATTLE') ? 'flex' : 'none';
+        }
+      };
+    }
+
+    // Initialize Game & Controls
+    initTouchControls();
     loadProfile();
     setUIState('MENU');
     requestAnimationFrame(gameLoop);
